@@ -2,7 +2,7 @@ import type { LifeCycle } from "@interface/life-cycle";
 import { ButtonState } from "./button-state";
 import { Controller } from "./controller";
 import { Vector2 } from "@class/vector2";
-import { clamp } from "@function/clamp";
+import { Mathf } from "@class/mathf";
 
 export class ControllerListener implements LifeCycle {
     public buttons: Map<Controller, ButtonState>;
@@ -42,6 +42,8 @@ export class ControllerListener implements LifeCycle {
     public onEnable(): void { }
 
     public onUpdate(): void {
+        const pads = navigator.getGamepads();
+        this.gamepad = pads[this.index] ?? undefined;
         if (!this.gamepad) return;
 
         this.gamepad.buttons.forEach((button, i) => {
@@ -60,8 +62,8 @@ export class ControllerListener implements LifeCycle {
             }
         });
 
-        this.triggerL = clamp(this.gamepad.buttons[6]!.value ?? 0, 0 , 1);
-        this.triggerR = clamp(this.gamepad.buttons[7]!.value ?? 0, 0, 1);
+        this.triggerL = Mathf.clamp(this.gamepad.buttons[6]!.value ?? 0, 0, 1);
+        this.triggerR = Mathf.clamp(this.gamepad.buttons[7]!.value ?? 0, 0, 1);
         this.joystickL.set(this.gamepad.axes[0] ?? 0, -(this.gamepad.axes[1] ?? 0));
         this.joystickR.set(this.gamepad.axes[2] ?? 0, -(this.gamepad.axes[3] ?? 0));
     }

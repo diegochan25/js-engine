@@ -4,9 +4,7 @@
         "target": "ESNext",
         "module": "Preserve",
         "moduleDetection": "force",
-        "jsx": "react-jsx",
         "allowJs": true,
-
         "baseUrl": "./",
         "paths": {
             "@input/*": ["./src/engine/input/*"],
@@ -14,7 +12,8 @@
             "@class/*": ["./src/engine/common/class/*"],
             "@interface/*": ["./src/engine/common/interface/*"],
             "@enum/*": ["./src/engine/common/enum/*"],
-            "@function/*": ["./src/engine/common/function/*"]
+            "@function/*": ["./src/engine/common/function/*"],
+            "@ecs/*": ["./src/engine/ecs/*"]
         },
 
         "moduleResolution": "bundler",

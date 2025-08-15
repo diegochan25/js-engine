@@ -1,12 +1,17 @@
 import type { LifeCycle } from "@interface/life-cycle";
 import { InputListener } from "./input-listener";
 import { ControllerListener } from "./controller-listener";
+import { System } from "@ecs/system";
+import { InputMap } from "./input-map";
 
-export class InputSystem implements LifeCycle {
+export class InputSystem extends System implements LifeCycle {
     private listener: InputListener;
     private controllerListeners: ControllerListener[];
 
     constructor() {
+        super(new Set([
+            InputMap
+        ]));
         this.listener = new InputListener();
         this.controllerListeners = [
             new ControllerListener(0),
@@ -16,27 +21,27 @@ export class InputSystem implements LifeCycle {
         ];
     }
 
-    public onEnter(): void {
+    public override onEnter(): void {
         this.listener.onEnter();
         this.controllerListeners.forEach((listener) => listener.onEnter());
     }
 
-    public onEnable(): void {
+    public override onEnable(): void {
         this.listener.onEnable();
         this.controllerListeners.forEach((listener) => listener.onEnable());
     }
 
-    public onUpdate(): void {
+    public override onUpdate(): void {
         this.listener.onUpdate();
         this.controllerListeners.forEach((listener) => listener.onUpdate());
     }
 
-    public onDisable(): void {
+    public override onDisable(): void {
         this.listener.onDisable();
         this.controllerListeners.forEach((listener) => listener.onDisable());
     }
 
-    public onExit(): void {
+    public override onExit(): void {
         this.listener.onExit();
         this.controllerListeners.forEach((listener) => listener.onExit());
     }

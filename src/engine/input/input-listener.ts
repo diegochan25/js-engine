@@ -47,7 +47,6 @@ export class InputListener implements LifeCycle {
         this.mouse.set(event.button, ButtonState.Release);
         if (event.button === Mouse.LeftClick) {
             this.dragging = false;
-            this.lastClick = Vector2.ZERO;
         }
     }
 
